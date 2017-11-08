@@ -6,7 +6,7 @@ branches:
 
 os:
   - linux
-#  - osx
+  - osx
 
 language: python
 
@@ -17,6 +17,18 @@ python:
   - "3.6"
   - "pypy"
   - "pypy3"
+
+# Try to work around Travis' lack of Python support on OS X.
+# https://github.com/travis-ci/travis-ci/issues/2312#issuecomment-289140791
+matrix:
+  include:
+    - language: generic
+      os: osx
+      before_install:
+        - brew update
+        - brew install python3
+        - virtualenv env -p python3
+        - source env/bin/activate
 
 install:
   - pip install .
