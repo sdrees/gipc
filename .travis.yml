@@ -27,11 +27,8 @@ matrix:
       env: PYENV_VERSION=3.6.6
 
 
-before_install:
-  - ./.travis/ci/env.sh
-
-
 install:
+  - ./.travis/ci/env.sh
   - pip install .
   - pip install -r requirements-tests.txt
 
