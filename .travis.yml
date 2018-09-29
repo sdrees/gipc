@@ -6,6 +6,10 @@ branches:
 
 language: python
 
+env:
+  - GEVENT_VERSION="default"
+  - GEVENT_VERSION="gevent>=1.2,<1.3"
+
 # Try to work around Travis' lack of Python support on OS X.
 # https://github.com/travis-ci/travis-ci/issues/2312#issuecomment-289140791
 matrix:
@@ -39,16 +43,8 @@ install:
 script:
     - python --version && uname -a
 
-    - export no_proxy='*'
-    - echo "Test with gevent 1.2.x"
-    - pip install 'gevent>=1.2,<1.3' --upgrade
-    - pip list
-    - pytest -vv test/
-    - bash examples/run-all.sh
-    - bash audit.sh
+    - [ "$GEVENT_VERSION" != "default" ] && pip install "$GEVENT_VERSION" --upgrade
 
-    - echo "Test with gevent 1.3.x"
-    - pip install 'gevent>=1.3' --upgrade
     - pip list
     - pytest -vv test/
     - bash examples/run-all.sh
