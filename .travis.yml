@@ -28,7 +28,7 @@ matrix:
 
 
 install:
-  - ./.travis/ci/env.sh
+  - ./ci/env.sh
   - pip install .
   - pip install -r requirements-tests.txt
 
