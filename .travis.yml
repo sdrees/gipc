@@ -84,6 +84,7 @@ matrix:
         - PYENV_VERSION=3.6.6
         - GEVENT_VERSION="gevent>=1.2,<1.3"
 
+  allow_failures:
     - os: osx
       language: generic
       env:
