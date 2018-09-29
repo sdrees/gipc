@@ -36,15 +36,9 @@ matrix:
 
 install:
   - source ./ci/env.sh
-  - pip install .
-  - pip install -r requirements-tests.txt
-
 
 script:
     - python --version && uname -a
-
-    - [ "$GEVENT_VERSION" != "default" ] && pip install "$GEVENT_VERSION" --upgrade
-
     - pip list
     - pytest -vv test/
     - bash examples/run-all.sh
