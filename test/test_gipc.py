@@ -1212,6 +1212,13 @@ def complchild_test_wsgi_scenario_respgen(writer):
 
 
 def complchild_test_wsgi_scenario_client(http_server_address):
+    # On MacOS doing this right after fork can crash, see
+    # https://bugs.python.org/issue30385#msg293958 ... "Otherwise, restructuring
+    # your code to ensure network initialization occurs in the main thread
+    # before any forking _might_ also prevent the segfault."
+    # https://github.com/jgehrcke/gipc/issues/52
+    import os
+    os.environ['NO_PROXY'] = '*'
     try:
         import urllib.request as urllib2
     except ImportError:
