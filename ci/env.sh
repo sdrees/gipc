@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -x
 
 if [[ $TRAVIS_OS_NAME == 'linux' ]]; then
     echo "Nothing to do on Linux"
