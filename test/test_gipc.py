@@ -1173,6 +1173,16 @@ class TestComplexUseCases(object):
                 assert rg.exitcode == 0
             return [response]
 
+
+        try:
+            import urllib.request as request
+        except ImportError:
+            import urllib2 as request
+        try:
+            result = request.urlopen(None)
+        except AttributeError:
+            pass
+
         http_server = WSGIServer(('localhost', 0), hello_world)
         servelet = gevent.spawn(serve, http_server)
         # Wait for server being bound to socket.
@@ -1217,13 +1227,13 @@ def complchild_test_wsgi_scenario_client(http_server_address):
     # your code to ensure network initialization occurs in the main thread
     # before any forking _might_ also prevent the segfault."
     # https://github.com/jgehrcke/gipc/issues/52
-    import os
-    os.environ['NO_PROXY'] = '*'
+    #import os
+    #os.environ['NO_PROXY'] = '*'
     try:
-        import urllib.request as urllib2
+        import urllib.request as request
     except ImportError:
-        import urllib2
-    result = urllib2.urlopen("http://%s:%s/" % http_server_address)
+        import urllib2 as request
+    result = request.urlopen("http://%s:%s/" % http_server_address)
     assert result.read() == b"response"
 
 
