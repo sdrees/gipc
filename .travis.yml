@@ -31,7 +31,7 @@ matrix:
 
 
 install:
-  - bash ./ci/env.sh
+  - source ./ci/env.sh
   - pip install .
   - pip install -r requirements-tests.txt
 
